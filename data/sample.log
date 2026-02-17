@@ -1,0 +1,31 @@
+[2024-01-15 08:30:00] INFO [System] Application started
+[2024-01-15 08:30:01] DEBUG [Network] Initializing network subsystem
+[2024-01-15 08:30:02] INFO [Network] Listening on port 8080
+[2024-01-15 08:30:15] INFO [Database] Connected to database server
+[2024-01-15 08:30:16] DEBUG [Database] Connection pool initialized with 10 connections
+[2024-01-15 08:31:00] INFO [Auth] User 'john.doe' logged in
+[2024-01-15 08:31:05] WARNING [Auth] Failed login attempt for user 'admin'
+[2024-01-15 08:31:06] WARNING [Auth] Failed login attempt for user 'admin'
+[2024-01-15 08:31:07] ERROR [Auth] Account locked for user 'admin' after 3 failed attempts
+[2024-01-15 08:32:00] INFO [Network] Incoming connection from 192.168.1.100
+[2024-01-15 08:32:01] DEBUG [Network] Processing HTTP GET /api/users
+[2024-01-15 08:32:02] INFO [Database] Query executed in 45ms
+[2024-01-15 08:32:03] DEBUG [Network] Response sent: 200 OK
+[2024-01-15 08:33:00] WARNING [Database] Slow query detected: 1523ms
+[2024-01-15 08:33:15] ERROR [Database] Connection timeout to replica server
+[2024-01-15 08:33:16] INFO [Database] Switched to backup database server
+[2024-01-15 08:34:00] INFO [Cache] Cache hit ratio: 87%
+[2024-01-15 08:34:30] CRITICAL [System] Memory usage at 95%
+[2024-01-15 08:34:31] WARNING [System] Starting garbage collection
+[2024-01-15 08:34:35] INFO [System] Memory freed: 1.2GB
+[2024-01-15 08:35:00] DEBUG [Network] Keep-alive timeout reached
+[2024-01-15 08:35:01] INFO [Network] Connection closed
+[2024-01-15 08:36:00] INFO [Auth] User 'jane.smith' logged in
+[2024-01-15 08:36:30] ERROR [Network] Socket error: Connection reset by peer
+[2024-01-15 08:36:31] INFO [Network] Reconnection attempt 1/3
+[2024-01-15 08:36:32] INFO [Network] Connection restored
+[2024-01-15 08:37:00] DEBUG [Cache] Evicting expired entries
+[2024-01-15 08:37:01] INFO [Cache] Cleaned 1500 expired entries
+[2024-01-15 08:38:00] WARNING [System] CPU usage spike: 92%
+[2024-01-15 08:38:15] INFO [System] Load balancer redistributing requests
+[2024-01-15 08:39:00] INFO [Database] Backup completed successfully

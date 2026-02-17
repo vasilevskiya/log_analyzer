@@ -1,0 +1,35 @@
+load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+
+cc_library(
+    name = "log_analyzer_lib",
+    srcs = [
+        "src/log_entry.cpp",
+        "src/log_parser.cpp",
+        "src/statistics.cpp",
+    ],
+    hdrs = [
+        "include/log_entry.h",
+        "include/log_parser.h",
+        "include/statistics.h",
+    ],
+    copts = [
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+    ],
+    includes = ["include"],
+)
+
+cc_binary(
+    name = "log_analyzer",
+    srcs = ["src/main.cpp"],
+    copts = [
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+    ],
+    deps = [":log_analyzer_lib"],
+)
