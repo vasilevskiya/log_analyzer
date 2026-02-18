@@ -1,3 +1,4 @@
+#include "log_cache.h"
 #include "log_parser.h"
 #include "statistics.h"
 #include <iostream>
@@ -15,25 +16,30 @@ int main(int argc, char* argv[]) {
             std::cerr << "Usage: " << argv[0] << " <log_file>\n";
             return 1;
         }
-        
+
         fs::path logFile = argv[1];
-        
+
         // Check if file exists using filesystem library
         if (!fs::exists(logFile)) {
             std::cerr << "Error: File '" << logFile << "' does not exist.\n";
             return 1;
         }
-        
+
         std::cout << "Analyzing log file: " << logFile << "\n";
         std::cout << "File size: " << fs::file_size(logFile) << " bytes\n";
-        
-        // Create parser (move-only type)
-        auto parser = LogParser(logFile);
-        
-        // Parse all entries - uses move semantics internally
-        auto entries = parser.parseAll();
-        
+
+        // Use LogCache with std::unique_ptr ownership of parsed data
+        LogCache cache;
+
+        // First call parses the file and caches the result
+        auto entries = cache.getEntries(logFile);
+
         std::cout << "Parsed " << entries.size() << " log entries.\n";
+
+        // Second call demonstrates cache hit (no re-parsing)
+        auto entriesAgain = cache.getEntries(logFile);
+        std::cout << "Cache hit: " << (entries.data() == entriesAgain.data() ? "yes" : "no")
+                  << " (" << cache.size() << " file(s) cached)\n";
         
         if (entries.empty()) {
             std::cout << "No valid entries found.\n";
