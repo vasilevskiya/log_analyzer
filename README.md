@@ -1,5 +1,7 @@
 # Log Analyzer - Modern C++ Practice Project
 
+[![CI](https://github.com/vasilevskiya/log_analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/vasilevskiya/log_analyzer/actions/workflows/ci.yml)
+
 A simple log file analyzer demonstrating modern C++ (C++11 through C++20) idioms and best practices.
 
 ## Modern C++ Features Demonstrated
