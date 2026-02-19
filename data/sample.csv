@@ -1,0 +1,7 @@
+# Sample CSV log file for GenericParser<CsvFormat>
+2024-01-15 08:30:00,INFO,System,Application started
+2024-01-15 08:30:01,DEBUG,Network,Initializing network subsystem
+2024-01-15 08:31:00,WARNING,,Unattributed warning with no module
+2024-01-15 08:31:07,ERROR,Auth,Account locked for user 'admin'
+2024-01-15 08:34:30,CRITICAL,System,Memory usage at 95%
+2024-01-15 08:36:30,INFO,Network,Message with, embedded, commas

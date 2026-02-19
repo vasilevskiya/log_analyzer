@@ -1,6 +1,6 @@
 #pragma once
 
-#include "log_entry.h"
+#include "log_parser.h"
 #include <vector>
 #include <map>
 #include <span>
@@ -9,31 +9,52 @@
 
 namespace LogAnalyzer {
 
-// Caching system using std::unique_ptr to manage ownership of parsed log data.
-// Demonstrates smart pointer usage: unique_ptr owns the cached vectors,
-// while callers receive non-owning std::span views.
-class LogCache {
+// Policy-based caching template: uses GenericParser<Policy> internally.
+template<FormatPolicy Policy>
+class GenericLogCache {
 public:
-    LogCache() = default;
+    GenericLogCache() = default;
 
     // Move-only (owns unique_ptrs)
-    LogCache(const LogCache&) = delete;
-    LogCache& operator=(const LogCache&) = delete;
-    LogCache(LogCache&&) = default;
-    LogCache& operator=(LogCache&&) = default;
+    GenericLogCache(const GenericLogCache&) = delete;
+    GenericLogCache& operator=(const GenericLogCache&) = delete;
+    GenericLogCache(GenericLogCache&&) = default;
+    GenericLogCache& operator=(GenericLogCache&&) = default;
 
     // Get entries for a file — parses on first call, returns cached on subsequent calls.
     // Invalidates cache if file has been modified since last parse.
-    std::span<const LogEntry> getEntries(const std::filesystem::path& logFile);
+    std::span<const LogEntry> getEntries(const std::filesystem::path& logFile) {
+        auto modTime = std::filesystem::last_write_time(logFile);
+
+        auto it = cache_.find(logFile);
+        if (it != cache_.end() && it->second.lastModified == modTime) {
+            return *it->second.entries;
+        }
+
+        GenericParser<Policy> parser(logFile);
+        auto parsed = parser.parseAll();
+
+        auto entries = std::make_unique<std::vector<LogEntry>>(std::move(parsed));
+
+        auto& stored = cache_[logFile] = CacheEntry{std::move(entries), modTime};
+
+        return *stored.entries;
+    }
 
     // Evict a specific file from cache
-    void evict(const std::filesystem::path& logFile);
+    void evict(const std::filesystem::path& logFile) {
+        cache_.erase(logFile);
+    }
 
     // Clear entire cache
-    void clear();
+    void clear() {
+        cache_.clear();
+    }
 
     // Number of cached files
-    [[nodiscard]] size_t size() const;
+    [[nodiscard]] size_t size() const {
+        return cache_.size();
+    }
 
 private:
     struct CacheEntry {
@@ -42,5 +63,8 @@ private:
     };
     std::map<std::filesystem::path, CacheEntry> cache_;
 };
+
+// Backward-compatible type alias
+using LogCache = GenericLogCache<BracketFormat>;
 
 } // namespace LogAnalyzer

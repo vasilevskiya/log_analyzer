@@ -16,7 +16,7 @@ endif()
 # Main executable
 add_executable(log_analyzer
     src/main.cpp
-    src/log_cache.cpp
+    src/format_policies.cpp
     src/log_parser.cpp
     src/log_entry.cpp
     src/statistics.cpp
