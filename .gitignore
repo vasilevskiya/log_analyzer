@@ -1,8 +1,10 @@
 # IDE
 .vscode/
 
-# Build directories
+# Build artifacts
 build/
+obj/
+/log_analyzer
 
 # Bazel
 bazel-*
@@ -10,6 +12,3 @@ MODULE.bazel.lock
 
 # Debug symbols
 *.dSYM/
-
-# Executables
-log_analyzer
