@@ -8,5 +8,8 @@ build/
 bazel-*
 MODULE.bazel.lock
 
+# Debug symbols
+*.dSYM/
+
 # Executables
 log_analyzer
