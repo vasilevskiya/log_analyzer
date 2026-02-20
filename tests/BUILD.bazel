@@ -64,6 +64,15 @@ cc_test(
 )
 
 cc_test(
+    name = "formatter_test",
+    srcs = ["formatter_test.cpp"],
+    deps = [
+        "//:log_analyzer_lib",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_test(
     name = "log_iterator_test",
     srcs = ["log_iterator_test.cpp"],
     deps = [
