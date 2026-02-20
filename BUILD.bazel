@@ -6,10 +6,10 @@ cc_library(
     srcs = [
         "src/format_policies.cpp",
         "src/log_entry.cpp",
-        "src/log_parser.cpp",
         "src/statistics.cpp",
     ],
     hdrs = [
+        "include/filter.h",
         "include/format_policies.h",
         "include/log_cache.h",
         "include/log_entry.h",

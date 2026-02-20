@@ -1,5 +1,6 @@
 #pragma once
 
+#include "filter.h"
 #include "format_policies.h"
 #include "log_entry.h"
 #include <vector>
@@ -70,10 +71,11 @@ private:
 // Backward-compatible type alias
 using LogParser = GenericParser<BracketFormat>;
 
-// Free function demonstrating std::span (non-owning view of contiguous data)
-[[nodiscard]] std::vector<LogEntry> filterByLevel(
+// Backward-compatible wrapper — delegates to the generic filter() with byLevel().
+[[nodiscard]] inline std::vector<LogEntry> filterByLevel(
     std::span<const LogEntry> entries,
-    LogLevel level
-);
+    LogLevel level) {
+    return filter(entries, byLevel(level));
+}
 
 } // namespace LogAnalyzer
