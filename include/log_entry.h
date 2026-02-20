@@ -4,6 +4,7 @@
 #include <optional>
 #include <chrono>
 #include <string_view>
+#include <type_traits>
 
 namespace LogAnalyzer {
 
@@ -15,6 +16,12 @@ enum class LogLevel {
     Error,
     Critical
 };
+
+// Comparison operators for LogLevel using underlying integer values.
+constexpr auto operator<=>(LogLevel lhs, LogLevel rhs) {
+    using U = std::underlying_type_t<LogLevel>;
+    return static_cast<U>(lhs) <=> static_cast<U>(rhs);
+}
 
 // Convert string to LogLevel - demonstrates std::optional for failure cases
 std::optional<LogLevel> parseLogLevel(std::string_view level);
