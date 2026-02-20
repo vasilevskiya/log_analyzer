@@ -89,3 +89,12 @@ cc_test(
         "@googletest//:gtest_main",
     ],
 )
+
+cc_test(
+    name = "pipeline_test",
+    srcs = ["pipeline_test.cpp"],
+    deps = [
+        "//:log_analyzer_lib",
+        "@googletest//:gtest_main",
+    ],
+)

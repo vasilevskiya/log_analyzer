@@ -43,4 +43,35 @@ inline auto beforeTime(LogEntry::TimePoint cutoff) {
     return [cutoff](const LogEntry& e) { return e.timestamp < cutoff; };
 }
 
+// --- View adaptor factories for lazy pipelines (C++20 ranges) ---
+
+// Returns a view adaptor that keeps entries with the given level.
+inline auto in_level(LogLevel level) {
+    return std::views::filter([level](const LogEntry& e) {
+        return e.level == level;
+    });
+}
+
+// Returns a view adaptor that keeps entries at or above the given level.
+inline auto at_least_level(LogLevel minLevel) {
+    return std::views::filter([minLevel](const LogEntry& e) {
+        return e.level >= minLevel;
+    });
+}
+
+// Returns a view adaptor that keeps entries whose module matches the given name.
+inline auto in_module(std::string_view module) {
+    return std::views::filter([m = std::string(module)](const LogEntry& e) {
+        return e.module.has_value() && *e.module == m;
+    });
+}
+
+// Returns a view adaptor that transforms entries into {timestamp, message} pairs.
+inline auto extract_messages() {
+    return std::views::transform([](const LogEntry& e)
+        -> std::pair<LogEntry::TimePoint, std::string_view> {
+        return {e.timestamp, e.message};
+    });
+}
+
 } // namespace LogAnalyzer
