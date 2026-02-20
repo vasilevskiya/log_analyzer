@@ -14,6 +14,7 @@ cc_library(
         "include/format_policies.h",
         "include/log_cache.h",
         "include/log_entry.h",
+        "include/log_iterator.h",
         "include/log_parser.h",
         "include/statistics.h",
     ],
