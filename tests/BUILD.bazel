@@ -53,3 +53,12 @@ cc_test(
         "@googletest//:gtest_main",
     ],
 )
+
+cc_test(
+    name = "async_parser_test",
+    srcs = ["async_parser_test.cpp"],
+    deps = [
+        "//:log_analyzer_lib",
+        "@googletest//:gtest_main",
+    ],
+)

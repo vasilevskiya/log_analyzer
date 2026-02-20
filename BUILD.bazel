@@ -9,6 +9,7 @@ cc_library(
         "src/statistics.cpp",
     ],
     hdrs = [
+        "include/async_parser.h",
         "include/filter.h",
         "include/format_policies.h",
         "include/log_cache.h",
