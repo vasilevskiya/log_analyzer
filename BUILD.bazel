@@ -11,6 +11,7 @@ cc_library(
     hdrs = [
         "include/async_parser.h",
         "include/filter.h",
+        "include/formatter.h",
         "include/format_policies.h",
         "include/log_cache.h",
         "include/log_entry.h",
