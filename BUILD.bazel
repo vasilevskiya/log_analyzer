@@ -17,6 +17,7 @@ cc_library(
         "include/log_entry.h",
         "include/log_iterator.h",
         "include/log_parser.h",
+        "include/pool_allocator.h",
         "include/statistics.h",
     ],
     copts = [
